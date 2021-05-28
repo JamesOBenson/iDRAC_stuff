@@ -1,9 +1,14 @@
 #!/bin/bash
 
 #FOR MAC OS: 
-# brew tap caskroom/cask
-# brew tap caskroom/versions
-# brew cask install java6
+# brew tap /homebrew/cask
+# brew tap homebrew/cask-versions
+# brew install java6
+
+# FOR MAC OS WITH M1 CHIP
+# curl -s "https://get.sdkman.io​" | bash
+# sdk list java
+# sdk install java 11.0.10-zulu
 
 # Verify version 6 is installed (and other versions)
 # /usr/libexec/java_home -V
@@ -24,8 +29,7 @@ fi
 read -p "Username: " dracuser
 dracuser=${dracuser:-root}
 
-echo -n 'Password: '
-read -s dracpwd
-echo
+read -p "Password: " dracpwd
+dracpwd=${dracpwd:-SECRET_PASSWORD}
 
-/usr/bin/java -cp avctKVM.jar -Djava.library.path=./lib com.avocent.idrac.kvm.Main ip=$drachost kmport=5900 vport=5900 user=$dracuser passwd=$dracpwd apcp=1 version=2 vmprivilege=true "helpurl=https://$drachost:443/help/contents.html"
+/usr/bin/java -cp avctKVM.jar -Djava.library.path=./lib com.avocent.idrac.kvm.Main ip=$drachost title=$drachost kmport=5900 vport=5900 user=$dracuser passwd=$dracpwd apcp=1 version=2 vmprivilege=true "helpurl=https://$drachost:443/help/contents.html"
